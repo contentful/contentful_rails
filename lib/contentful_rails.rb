@@ -1,4 +1,5 @@
 require "contentful_rails/engine"
+require 'redcarpet'
 
 module ContentfulRails
   class << self
