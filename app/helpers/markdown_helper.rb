@@ -3,6 +3,6 @@ module MarkdownHelper
     @markdown ||= Redcarpet::Markdown.new(
         Redcarpet::Render::HTML, autolink: true, space_after_headers: true, fenced_code_blocks: true
     )
-    @markdown.render(content)
+    @markdown.render(content).html_safe
   end
 end
