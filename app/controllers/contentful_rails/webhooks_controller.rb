@@ -4,6 +4,10 @@ class ContentfulRails::WebhooksController < ActionController::Base
                                   password: ContentfulRails.configuration.webhooks_password
   end
 
+  def create
+
+  end
+
   def debug
     render text: "Debug method works ok"
   end
