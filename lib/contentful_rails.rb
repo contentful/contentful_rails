@@ -1,4 +1,5 @@
 require "contentful_rails/engine"
+require "contentful_rails/development_constraint"
 require 'redcarpet'
 
 module ContentfulRails
@@ -12,10 +13,11 @@ module ContentfulRails
   end
 
   class Configuration
-
+    attr_accessor :set_routes, :authenticate_webhooks, :webhooks_username, :webhooks_password
 
     def initialize
-
+      @set_routes = true
+      @authenticate = true
     end
   end
 end
