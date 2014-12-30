@@ -15,6 +15,12 @@ module ContentfulRails
       end
     end
 
+    config.to_prepare do
+      if defined?(::ContentfulModel)
+        ContentfulModel::Base.send(:include, ContentfulRails::CachedTimestamps)
+      end
+    end
+
     #if we're at the end of initialization and there's no config object,
     #set one up with the default options (i.e. an empty proc)
     config.after_initialize do
