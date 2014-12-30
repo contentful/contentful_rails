@@ -4,6 +4,8 @@ class ContentfulRails::WebhooksController < ActionController::Base
                                   password: ContentfulRails.configuration.webhooks_password
   end
 
+  skip_before_filter :verify_authenticity_token, :only => [:create]
+
   #this is where we receive a webhook, via a POST
   def create
     # The only things we need to handle in here (for now at least) are entries.
@@ -12,23 +14,30 @@ class ContentfulRails::WebhooksController < ActionController::Base
     # will check the cache first before making the call to the API.
 
     # We can then just use normal Rails russian doll caching without expensive API calls.
-
-    update_type = headers('HTTP_X-Contentful-Topic')
-    content_type_id = params['sys']['contentType']['id']
-    item_id = params['sys']['id']
+    request.format = :json
+    update_type = request.headers['HTTP_X_CONTENTFUL_TOPIC']
+    content_type_id = params[:sys][:contentType][:sys][:id]
+    item_id = params[:sys][:id]
     cache_key = "contentful_timestamp/#{content_type_id}/#{item_id}"
 
-    #handle publish by caching the new timestamp
+    #delete the cache entry
     if update_type =~ %r(Entry)
       Rails.cache.delete(cache_key)
     end
 
     #must return an ok
-    head :ok
+    render nothing: true
   end
 
   def debug
     render text: "Debug method works ok"
+  end
+
+  private
+
+  def webhook_params
+    params.permit!
+    params.require(:sys).permit(:id, contentType: [sys: [:id]])
   end
 
 
