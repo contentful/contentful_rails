@@ -1,5 +1,6 @@
 require "contentful_rails/engine"
 require "contentful_rails/development_constraint"
+require "contentful_rails/cached_timestamps"
 require 'redcarpet'
 
 module ContentfulRails
