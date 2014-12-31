@@ -9,15 +9,15 @@ Gem::Specification.new do |s|
   s.version     = ContentfulRails::VERSION
   s.authors     = ["Error Creative Studio"]
   s.email       = ["hosting@errorstudio.co.uk"]
-  s.homepage    = "http://www.errorstudio.co.uk"
-  s.summary     = "A gem to help with hooking Contentful into your application"
-  s.description = "A gem to help with hooking Contentful into your application"
+  s.homepage    = "https://github.com/errorstudio/contentful_rails"
+  s.summary     = "A gem to help with hooking Contentful into your Rails application"
+  s.description = "A gem to help with hooking Contentful into your Rails application"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", ">= 4.1.8"
-  s.add_dependency "redcarpet"
+  s.add_dependency "redcarpet", "~> 3.2.2"
 
 end
