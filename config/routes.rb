@@ -1,5 +1,4 @@
 ContentfulRails::Engine.routes.draw do
-  #if ContentfulRails::Configuration.set_routes
 
   resources :webhooks, only: [:create], defaults: { format: :json } do
     collection do
@@ -9,5 +8,4 @@ ContentfulRails::Engine.routes.draw do
     end
   end
 
-  #end
 end

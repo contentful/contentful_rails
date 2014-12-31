@@ -14,10 +14,9 @@ module ContentfulRails
   end
 
   class Configuration
-    attr_accessor :set_routes, :authenticate_webhooks, :webhooks_username, :webhooks_password
+    attr_accessor :authenticate_webhooks, :webhooks_username, :webhooks_password
 
     def initialize
-      @set_routes = true
       @authenticate = true
     end
   end
