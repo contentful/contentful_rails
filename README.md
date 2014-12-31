@@ -66,6 +66,9 @@ Some things would be nice to do:
 * Implement a method on ContentfulModel to simulate a parent-child relationship, so we can invalidate caches for parent items
 
 
+# Licence
+Licence is MIT. Please see MIT-LICENCE in this repo.
+
 # Contributing
 Please feel free to contribute!
 
