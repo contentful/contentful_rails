@@ -9,7 +9,11 @@ module ContentfulRails
     end
 
     def updated_at_with_caching
-      Rails.cache.fetch(self.timestamp_cache_key) do
+      if Rails.configuration.action_controller.perform_caching
+        Rails.cache.fetch(self.timestamp_cache_key) do
+          updated_at_without_caching
+        end
+      else
         updated_at_without_caching
       end
     end
