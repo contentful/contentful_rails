@@ -15,10 +15,6 @@ module ContentfulRails
       end
     end
 
-    initializer "add_contentful_mime_type" do
-      Mime::Type.register "application/json", :json, ["application/vnd.contentful.management.v1+json"]
-    end
-
     config.to_prepare do
       if defined?(::ContentfulModel)
         ContentfulModel::Base.send(:include, ContentfulRails::CachedTimestamps)
