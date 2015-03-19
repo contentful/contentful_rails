@@ -48,7 +48,9 @@ This will give you 2 routes:
 At the moment all this does is delete the timestamp cache entry, which means that a subsequent call to `updated_at` calls the API.
 
 # View Helpers
-There's a view helper you can include in your application, to render the markdown from the Contentful API text fields.
+Contentful has a [really nice url-based image manipulation API](https://www.contentful.com/blog/2014/08/14/do-more-with-images-on-contentful-platform/).
+
+To take advantage of this, there's a custom Redcarpet renderer which allows you to pass the image parameters you want into the call to a `parse_markdown()` method.
 
 In your application_controller.rb:
 
@@ -56,7 +58,23 @@ In your application_controller.rb:
 helper ContentfulRails::MarkdownHelper
 ```
 
-This allows you to call `parse_markdown(@your_markdown)` and get HTML.
+This allows you to call `parse_markdown(@your_markdown)` and get HTML. *Note* that out of the box, the `parse_markdown()` is really permissive and allows you to put HTML in the Contentful markdown fields. This might not be what you want.
+
+## Manipulating images
+To manipulate images which are referenced in your markdown, you can pass the following into the `parse_markdown()` call.
+
+```
+parse_markdown(@your_markdown, image_options: {width: 1024, height: 1024})
+```
+
+The `image_options` parameter takes the following options (some are mutually exclusive. Read the [instructions here](https://www.contentful.com/blog/2014/08/14/do-more-with-images-on-contentful-platform/)):
+
+* `:width`
+* `:height`
+* `:fit`
+* `:focus`
+* `:corner_radius`
+* `:quality`
 
 # To Do
 Some things would be nice to do:
