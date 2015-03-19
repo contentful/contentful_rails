@@ -76,6 +76,30 @@ The `image_options` parameter takes the following options (some are mutually exc
 * `:corner_radius`
 * `:quality`
 
+## Subclassing the MarkdownRenderer class
+Sometimes you might want to apply some specific class, markup or similar to an html entity when it's being processed. [With RedCarpet that's dead easy](https://github.com/vmg/redcarpet#and-you-can-even-cook-your-own).
+
+Just subclass the `ContentfulRails::MarkdownRenderer` class, and call any methods you need.
+
+```
+class MyRenderer < ContentfulRails::MarkdownRenderer
+      # If you want to pass options into your renderer, you need to overload initialize()
+      def initialize(opts)
+        @options = opts
+        super
+      end
+
+      # If you want to do something special with links:
+      def link(link,title,content)
+        # Add a class name to all links, for example
+        class_name = "my-link-class-name"
+        content_tag(:a, content, href: link, title: title, class: class_name)
+      end
+end
+```
+
+You can overload any methods exposed in RedCarpet.
+
 # To Do
 Some things would be nice to do:
 
