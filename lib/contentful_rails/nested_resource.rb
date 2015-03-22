@@ -11,7 +11,10 @@ module ContentfulRails
       # e.g. /grandparent/parent/child
       # @param [Symbol] the field to search by - for example, :slug
       # @param [String] the path as a forward-slash separated string
-      def get_nested_from_path_by(field, path)
+      def get_nested_from_path_by(field, path, opts)
+        if opts.present? && opts[:unescape]
+          path = CGI::unescape(path)
+        end
         root, *children = path.gsub(/^\//, '').split("/")
 
         if field.to_sym == :id
@@ -54,8 +57,13 @@ module ContentfulRails
       end
     end
 
-    def nested_path_by(field)
-      ([self] + ancestors).reverse.collect {|a| a.send(field)}.join("/")
+    # Given a field (and optional delimiter), return a path to the current object.
+    # e.g. you'd end up with /path/to/page (where this object is 'page')
+    # @param [Symbol] the field to use to create the path
+    # @param [String] the delimiter to use. Defaults to "/"
+    # @return [String] the path as a string
+    def nested_path_by(field, delimiter="/")
+      ([self] + ancestors).reverse.collect {|a| a.send(field)}.join(delimiter)
     end
   end
 end
