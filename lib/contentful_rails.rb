@@ -3,6 +3,7 @@ require "contentful_rails/development_constraint"
 require "contentful_rails/cached_timestamps"
 require "contentful_rails/markdown_renderer"
 require "contentful_rails/nested_resource"
+require "contentful_rails/sluggable"
 require 'redcarpet'
 
 module ContentfulRails
