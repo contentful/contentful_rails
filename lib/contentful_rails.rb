@@ -2,6 +2,7 @@ require "contentful_rails/engine"
 require "contentful_rails/development_constraint"
 require "contentful_rails/cached_timestamps"
 require "contentful_rails/markdown_renderer"
+require "contentful_rails/nested_resource"
 require 'redcarpet'
 
 module ContentfulRails
