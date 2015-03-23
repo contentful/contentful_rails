@@ -17,10 +17,11 @@ module ContentfulRails
   end
 
   class Configuration
-    attr_accessor :authenticate_webhooks, :webhooks_username, :webhooks_password
+    attr_accessor :authenticate_webhooks, :webhooks_username, :webhooks_password, :slug_delimiter
 
     def initialize
       @authenticate = true
+      @slug_delimiter = "-"
     end
   end
 end

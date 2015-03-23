@@ -11,7 +11,7 @@ module ContentfulRails
 
     def slug
       if self.class.slug_field.present?
-        self.send(self.class.slug_field).parameterize(Rails.configuration.x.param_delimiter)
+        self.send(self.class.slug_field).parameterize(ContentfulRails.configuration.slug_delimiter)
       end
     end
   end
