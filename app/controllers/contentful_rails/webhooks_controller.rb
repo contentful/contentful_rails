@@ -16,14 +16,11 @@ class ContentfulRails::WebhooksController < ActionController::Base
     # We can then just use normal Rails russian doll caching without expensive API calls.
     request.format = :json
     update_type = request.headers['HTTP_X_CONTENTFUL_TOPIC']
-    content_type_id = params[:sys][:contentType][:sys][:id]
-    item_id = params[:sys][:id]
-    cache_key = "contentful_timestamp/#{content_type_id}/#{item_id}"
 
-    #delete the cache entry
-    if update_type =~ %r(Entry)
-      Rails.cache.delete(cache_key)
-    end
+    # All we do here is publish an ActiveSupport::Notification, which is subscribed to
+    # elsewhere. In this gem are subscription options for timestamp or object caching,
+    # implement your own and subscribe in an initializer.
+    ActiveSupport::Notifications.instrument(update_type, params)
 
     #must return an ok
     render nothing: true
