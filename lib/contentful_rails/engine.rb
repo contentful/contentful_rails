@@ -29,6 +29,7 @@ module ContentfulRails
 
     config.to_prepare do
       if defined?(::ContentfulModel)
+        types = [ContentfulRails.configuration.caching_types] unless ContentfulRails.configuration.caching_types.is_a?(Array)
         case ContentfulRails.configuration.caching_type
           when :timestamp
             ContentfulModel::Base.send(:include, ContentfulRails::Caching::Timestamps)

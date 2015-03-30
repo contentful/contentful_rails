@@ -28,7 +28,7 @@ module ContentfulRails
     def initialize
       @authenticate = true
       @slug_delimiter = "-"
-      @caching_type = :timestamp
+      @caching_types = [:timestamp]
       @perform_caching = Rails.configuration.action_controller.perform_caching
     end
   end
