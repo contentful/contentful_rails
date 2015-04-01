@@ -20,7 +20,7 @@ class ContentfulRails::WebhooksController < ActionController::Base
     # All we do here is publish an ActiveSupport::Notification, which is subscribed to
     # elsewhere. In this gem are subscription options for timestamp or object caching,
     # implement your own and subscribe in an initializer.
-    ActiveSupport::Notifications.instrument(update_type, params)
+    ActiveSupport::Notifications.instrument("Contentful.#{update_type}", params)
 
     #must return an ok
     render nothing: true
