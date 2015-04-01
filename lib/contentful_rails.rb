@@ -1,6 +1,5 @@
 require "contentful_rails/engine"
 require "contentful_rails/development_constraint"
-require 'contentful_rails/caching/objects'
 require 'contentful_rails/caching/timestamps'
 require "contentful_rails/markdown_renderer"
 require "contentful_rails/nested_resource"
