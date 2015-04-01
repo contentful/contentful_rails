@@ -31,10 +31,10 @@ module ContentfulRails
     end
 
     initializer "subscribe_to_webhook_events", after: :add_entry_mappings do
-      ActiveSupport::Notifications.subscribe(/Contentful.*Entry.*/) do |params|
-        content_type_id = params[:sys][:contentType][:sys][:id]
-        klass = ContentfulModel.configuration.entry_mapping[content_type_id].classify
-        klass.send(:clear_cache_for, params[:sys][:id])
+      ActiveSupport::Notifications.subscribe(/Contentful.*Entry.*/) do |name, start, finish, id, payload|
+        content_type_id = payload[:sys][:contentType][:sys][:id]
+        klass = ContentfulModel.configuration.entry_mapping[content_type_id]
+        klass.send(:clear_cache_for, payload[:sys][:id])
       end
     end
 
