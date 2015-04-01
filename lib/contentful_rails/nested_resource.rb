@@ -11,11 +11,14 @@ module ContentfulRails
       # e.g. /grandparent/parent/child
       # @param [Symbol] the field to search by - for example, :slug
       # @param [String] the path as a forward-slash separated string
-      def get_nested_from_path_by(field, path, opts)
-        if opts.present? && opts[:unescape]
-          path = CGI::unescape(path)
-        end
-        root, *children = path.gsub(/^\//, '').split("/")
+      def get_nested_from_path_by(field, path, opts = {})
+        options = {delimiter: '/', unescape: false}
+        options.merge(opts)
+
+        path = CGI::unescape(path) if options[:unescape]
+        delimiter = options[:delimiter]
+
+        root, *children = path.gsub(/^\//, '').split(delimiter)
 
         if field.to_sym == :id
           #we need to call find() to get by ID
