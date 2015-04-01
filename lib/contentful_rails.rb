@@ -4,6 +4,7 @@ require "contentful_rails/cached_timestamps"
 require "contentful_rails/markdown_renderer"
 require "contentful_rails/nested_resource"
 require "contentful_rails/sluggable"
+require "contentful_rails/preview"
 require 'redcarpet'
 
 module ContentfulRails
@@ -24,7 +25,11 @@ module ContentfulRails
                   :access_token,
                   :preview_access_token,
                   :space,
-                  :contentful_options
+                  :contentful_options,
+                  :preview_username,
+                  :preview_password,
+                  :preview_domain,
+                  :enable_preview_domain
 
     def initialize
       @authenticate = true
