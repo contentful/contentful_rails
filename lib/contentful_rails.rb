@@ -23,8 +23,7 @@ module ContentfulRails
                   :webhooks_username,
                   :webhooks_password,
                   :slug_delimiter,
-                  :caching_type,
-                  :enable_caching
+                  :perform_caching,
                   :access_token,
                   :preview_access_token,
                   :space,
