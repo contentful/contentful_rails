@@ -5,22 +5,26 @@ module ContentfulRails
     # Also includes a module method to remove an existing timestamp.
     module Timestamps
       def self.included(base)
+        base.extend ClassMethods
         base.class_eval do
           alias_method_chain :updated_at, :caching
         end
       end
 
-      # Clear an existing timestamp from the cache; called by the subscriber to the Entry notifications
-      # from the WebhooksController.
-      def self.clear_cache(params)
-        content_type_id = params[:sys][:contentType][:sys][:id]
-        item_id = params[:sys][:id]
-        cache_key = "contentful_timestamp/#{content_type_id}/#{item_id}"
+      module ClassMethods
+        # Clear an existing timestamp from the cache; called by the subscriber to the Entry notifications
+        # from the WebhooksController.
+        def clear_cache_for(item_id)
+          cache_key = timestamp_cache_key(item_id)
 
-        #delete the cache entry
-        #if update_type =~ %r(Entry)
-        Rails.cache.delete(cache_key)
+          Rails.cache.delete(cache_key)
+        end
+
+        def timestamp_cache_key(item_id)
+          "contentful_timestamp/#{self.content_type_id}/#{item_id}"
+        end
       end
+
 
       # A replacement method for updated_at(), called when this module is included in ContentfulModel::Base
       def updated_at_with_caching
@@ -34,7 +38,7 @@ module ContentfulRails
       end
 
       def timestamp_cache_key
-        "contentful_timestamp/#{self.class.content_type_id}/#{self.id}"
+        self.class.timestamp_cache_key(id)
       end
     end
   end
