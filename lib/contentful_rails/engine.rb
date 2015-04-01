@@ -42,7 +42,7 @@ module ContentfulRails
 
     config.to_prepare do
       if defined?(::ContentfulModel)
-        ContentfulModel::Base.send(:include, ContentfulRails::Caching::Timestamps) if types.include?(:timestamp)
+        ContentfulModel::Base.send(:include, ContentfulRails::Caching::Timestamps)
       end
     end
 
