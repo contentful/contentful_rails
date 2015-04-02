@@ -8,6 +8,7 @@ module ContentfulRails
         base.extend ClassMethods
         base.class_eval do
           alias_method_chain :updated_at, :caching
+          alias_method_chain :cache_key, :preview
         end
       end
 
@@ -40,6 +41,16 @@ module ContentfulRails
       def timestamp_cache_key
         self.class.timestamp_cache_key(id)
       end
+
+      def cache_key_with_preview
+        if ContentfulModel.use_preview_api
+          "preview/#{cache_key_without_preview}"
+        else
+          cache_key_without_preview
+        end
+      end
+
+
     end
   end
 end
