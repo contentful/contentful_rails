@@ -43,7 +43,6 @@ module ContentfulRails
       # to the front of the key.
       return unless request.subdomain == ContentfulRails.configuration.preview_domain
       expire_fragment(%r{^preview/.*})
-      puts "Fragments expired"
     end
   end
 end
