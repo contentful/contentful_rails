@@ -4,6 +4,7 @@ module ContentfulRails
 
     included do
       before_action :check_preview_domain
+      after_action :remove_preview_cache
     end
     # Check whether the subdomain being presented is the preview domain.
     # If so, set ContentfulModel to use the preview API, and request a username / password
@@ -33,6 +34,16 @@ module ContentfulRails
         return
       end
 
+    end
+
+    # If we're in preview mode, we need to remove the preview view caches which were created.
+    # this is a bit of a hack but it's probably not feasible to turn off caching in preview mode.
+    def remove_preview_cache
+      # in preview mode, we alias_method_chain the cache_key method on ContentfulModel::Base to append 'preview/'
+      # to the front of the key.
+      return unless request.subdomain == ContentfulRails.configuration.preview_domain
+      expire_fragment(%r{^preview/.*})
+      puts "Fragments expired"
     end
   end
 end
