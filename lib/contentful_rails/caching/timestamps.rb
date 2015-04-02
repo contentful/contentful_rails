@@ -28,7 +28,7 @@ module ContentfulRails
 
       # A replacement method for updated_at(), called when this module is included in ContentfulModel::Base
       def updated_at_with_caching
-        if ContentfulRails.configuration.perform_caching
+        if ContentfulRails.configuration.perform_caching && !ContentfulModel.use_preview_api
           Rails.cache.fetch(self.timestamp_cache_key) do
             updated_at_without_caching
           end
