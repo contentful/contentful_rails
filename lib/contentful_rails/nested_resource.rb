@@ -66,8 +66,12 @@ module ContentfulRails
     # @param [Symbol] the field to use to create the path
     # @param [String] the delimiter to use. Defaults to "/"
     # @return [String] the path as a string
-    def nested_path_by(field, delimiter="/")
-      ([self] + ancestors).reverse.collect {|a| a.send(field)}.join(delimiter)
+    def nested_path_by(field, opts = {})
+      options = {delimiter: "/", prefix: ""}
+      options.merge!(opts)
+      delimiter = options[:delimiter]
+      prefix = options[:prefix].empty? ? "" : "#{options[:prefix]}#{delimiter}"
+      ([self] + ancestors).reverse.collect {|a| a.send(field)}.join(delimiter).gsub(prefix,"")
     end
   end
 end
