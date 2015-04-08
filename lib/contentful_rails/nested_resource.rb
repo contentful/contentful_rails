@@ -71,7 +71,8 @@ module ContentfulRails
       options.merge!(opts)
       delimiter = options[:delimiter]
       prefix = options[:prefix].empty? ? "" : "#{options[:prefix]}#{delimiter}"
-      ([self] + ancestors).reverse.collect {|a| a.send(field)}.join(delimiter).gsub(prefix,"")
+      path = ([self] + ancestors).reverse.collect {|a| a.send(field)}.join(delimiter).gsub(prefix,"")
+      return delimiter + path
     end
   end
 end
