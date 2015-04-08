@@ -6,6 +6,7 @@ module ContentfulRails
     # @param renderer_options [Hash] of options from https://github.com/vmg/redcarpet#darling-i-packed-you-a-couple-renderers-for-lunch
     # @param markdown_options [Hash] of options from https://github.com/vmg/redcarpet#and-its-like-really-simple-to-use
     def parse_markdown(markdown_string, renderer_options: {}, markdown_options: {}, image_options: {})
+      markdown_string ||= ""
       markdown_opts = {
         no_intr_emphasis: true,
         tables: true,
