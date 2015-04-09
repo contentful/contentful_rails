@@ -5,6 +5,7 @@ require 'redcarpet'
 # You can subclass this in your application, to add or manipulate specific markup to elements in the markdown.
 class ContentfulRails::MarkdownRenderer < Redcarpet::Render::HTML
   include ActionView::Helpers::TagHelper
+  include ActionView::Context
   def initialize(opts)
     @options = opts
     @image_parameters = {
