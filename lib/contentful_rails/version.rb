@@ -1,3 +1,3 @@
 module ContentfulRails
-  VERSION = "0.0.9.1"
+  VERSION = "0.2.0"
 end
