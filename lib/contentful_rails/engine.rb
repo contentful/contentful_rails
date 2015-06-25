@@ -34,7 +34,11 @@ module ContentfulRails
       ActiveSupport::Notifications.subscribe(/Contentful.*Entry\.publish/) do |name, start, finish, id, payload|
         content_type_id = payload[:sys][:contentType][:sys][:id]
         klass = ContentfulModel.configuration.entry_mapping[content_type_id]
-        klass.send(:clear_cache_for, payload[:sys][:id])
+        # klass will be nil if the content model has been created in contentful but the model in rails hasn't been added
+        unless klass.nil?
+          klass.send(:clear_cache_for, payload[:sys][:id])
+        end
+
       end
 
       ActiveSupport::Notifications.subscribe(/Contentful.*Entry\.unpublish/) do |name, start, finish, id, payload|
