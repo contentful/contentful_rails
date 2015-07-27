@@ -11,10 +11,17 @@ ContentfulRails.configure do |config|
   config.authenticate_webhooks = true # false here would allow the webhooks to process without basic auth
   config.webhooks_username = "a basic auth username"
   config.webhooks_password = "a basic auth password"
+  config.access_token = "your access token"
+  config.preview_access_token = "your preview access token"
+  config.space = "your space ID"
+  config.options = "hash of options"
 end
 ```
 
-The default is to authenticate the webhooks. Probably a smart move to host on an HTTPS endpoint too.
+Note that you _don't_ have to separately configure ContentfulModel - adding the access tokens / space ID / options here will
+pass to ContentfulModel in an initializer in the Rails engine.
+
+The default is to authenticate the webhooks; probably a smart move to host on an HTTPS endpoint too.
 
 # Allowing 'Russian Doll' style caching on Entries
 The issue with 'Russian Doll' caching in Rails is that it requires a hit on the database to check the `updated_at` timestamp of an object.
