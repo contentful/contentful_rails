@@ -13,6 +13,8 @@ module ContentfulRails
       ContentfulModel.configure do |config|
         config.access_token = ContentfulRails.configuration.access_token
         config.preview_access_token = ContentfulRails.configuration.preview_access_token
+        config.management_token = ContentfulRails.configuration.management_token
+        config.default_locale = ContentfulRails.configuration.default_locale
         config.space = ContentfulRails.configuration.space
         config.options = ContentfulRails.configuration.contentful_options
       end

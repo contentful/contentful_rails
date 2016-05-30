@@ -27,7 +27,9 @@ module ContentfulRails
                   :perform_caching,
                   :access_token,
                   :preview_access_token,
+                  :management_token,
                   :space,
+                  :default_locale,
                   :contentful_options,
                   :preview_username,
                   :preview_password,
@@ -42,3 +44,5 @@ module ContentfulRails
     end
   end
 end
+
+ActiveRecord::Migration.send(:include, ContentfulModel::Migrations::Migration)

@@ -1,7 +1,13 @@
 # Contentful Rails
-A collection of useful things to help make it easier to integrate Contentful into your Rails app.
 
-This is a work in progress. It relies on the contentful_model gem (http://github.com/errorstudio/contentful_model)
+A collection of useful things to help make it easier to integrate Contentful into your Rails app.
+It includes view helpers, a Webhook handler, caching, and a Rails Engine to hook it all together.
+
+This is a work in progress. It relies on the contentful_model gem (http://github.com/contentful/contentful_model)
+
+## What is Contentful?
+
+[Contentful](https://www.contentful.com) is a content management platform for web applications, mobile apps and connected devices. It allows you to create, edit & manage content in the cloud and publish it anywhere via powerful API. Contentful offers tools for managing editorial teams and enabling cooperation between organizations.
 
 # Configuration
 ContentfulRails accepts a block for configuration. Best done in a Rails initializer.
@@ -13,6 +19,7 @@ ContentfulRails.configure do |config|
   config.webhooks_password = "a basic auth password"
   config.access_token = "your access token"
   config.preview_access_token = "your preview access token"
+  config.management_token = "your management access token"
   config.space = "your space ID"
   config.options = "hash of options"
 end
