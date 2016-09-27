@@ -24,7 +24,7 @@ module ContentfulRails
     #and add an entry mapping for them, so calls to the Contentful API return
     #the appropriate classes
     #If eager_load_entry_mapping is true, engine assumes entry mapping is set manually by
-    #Contentful.entry_mapping (set in ContentfulRails.contentful_options[:entry_mapping])
+    #ContentfulRails.contentful_options[:entry_mapping] (passed through to Contentful.entry_mapping config)
     initializer "add_entry_mappings", after: :configure_contentful  do
       if defined?(ContentfulModel) && ContentfulRails.configuration.eager_load_entry_mapping
         Rails.application.eager_load!
