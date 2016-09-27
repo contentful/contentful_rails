@@ -23,8 +23,10 @@ module ContentfulRails
     #Iterate through all models which inherit from ContentfulModel::Base
     #and add an entry mapping for them, so calls to the Contentful API return
     #the appropriate classes
+    #If ContentfulModel.configuration.entry_mapping is already configured from
+    #initializer, assuming that is the one to use and not running `add_entry_mapping`
     initializer "add_entry_mappings", after: :configure_contentful  do
-      if defined?(ContentfulModel)
+      if defined?(ContentfulModel) && ContentfulModel.configuration.entry_mapping.blank?
         Rails.application.eager_load!
         ContentfulModel::Base.descendents.each do |klass|
           klass.send(:add_entry_mapping)
@@ -46,10 +48,6 @@ module ContentfulRails
       ActiveSupport::Notifications.subscribe(/Contentful.*Entry\.unpublish/) do |name, start, finish, id, payload|
         ActionController::Base.new.expire_fragment(%r{.*#{payload[:sys][:id]}.*})
       end
-    end
-
-    initializer "add_contentful_mime_type" do
-      Mime::Type.register "application/json", :json, ["application/vnd.contentful.management.v1+json"]
     end
 
     initializer "add_preview_support" do
