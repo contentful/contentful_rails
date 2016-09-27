@@ -34,12 +34,14 @@ module ContentfulRails
                   :preview_username,
                   :preview_password,
                   :preview_domain,
-                  :enable_preview_domain
+                  :enable_preview_domain,
+                  :eager_load_entry_mapping
 
     def initialize
       @authenticate = true
       @slug_delimiter = "-"
       @perform_caching = Rails.configuration.action_controller.perform_caching
+      @eager_load_entry_mapping = true
       @contentful_options = {}
     end
   end
