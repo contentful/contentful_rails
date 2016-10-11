@@ -11,3 +11,8 @@ Gemfile.lock
 !/log/.keep
 !/tmp/.keep
 
+/spec/dummy/log/*
+/spec/dummy/tmp/*
+!/spec/dummy/log/.keep
+!/spec/dummy/tmp/.keep
+
