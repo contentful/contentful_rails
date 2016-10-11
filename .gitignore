@@ -1,11 +1,13 @@
-.bundle/
-log/*.log
-pkg/
-test/dummy/db/*.sqlite3
-test/dummy/db/*.sqlite3-journal
-test/dummy/log/*.log
-test/dummy/tmp/
-test/dummy/.sass-cache
-.idea/*
-.idea/.*
-*.lock
+# Ignore bundler lockfile
+# http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile
+Gemfile.lock
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
