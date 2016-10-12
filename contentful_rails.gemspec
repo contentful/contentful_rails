@@ -19,7 +19,4 @@ Gem::Specification.new do |s|
   s.add_dependency "contentful_model", ">= 0.1.7"
   s.add_dependency "rails", ">= 4.2", "< 5.1"
   s.add_dependency "redcarpet", "~> 3.2"
-
-  s.add_development_dependency "pg"
-  s.add_development_dependency "rspec-rails", "~> 3.5.0"
 end

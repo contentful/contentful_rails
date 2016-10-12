@@ -1,0 +1,15 @@
+sudo: false
+cache: bundler
+before_script:
+  - psql -c 'create database dummy_test;' -U postgres
+rvm:
+  - 2.2.4
+  - 2.3.0
+gemfile:
+  - Gemfile.rails4.2
+  - Gemfile.rails5.0
+matrix:
+  exclude:
+    - rvm: 1.9.3
+      gemfile: Gemfile.rails5.0
+
