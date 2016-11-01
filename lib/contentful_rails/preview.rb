@@ -12,7 +12,6 @@ module ContentfulRails
     def check_preview_domain
       # If enable_preview_domain is not enabled, explicitly set use_preview_api false and return
       unless ContentfulRails.configuration.enable_preview_domain
-        ContentfulModel.use_preview_api = false
         return
       end
 
