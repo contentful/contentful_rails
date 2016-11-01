@@ -10,7 +10,7 @@ module ContentfulRails
     # Check whether the subdomain being presented is the preview domain.
     # If so, set ContentfulModel to use the preview API, and request a username / password
     def check_preview_domain
-      # If enable_preview_domain is not enabled, explicitly set use_preview_api false and return
+      # If enable_preview_domain is not enabled, return
       unless ContentfulRails.configuration.enable_preview_domain
         return
       end
