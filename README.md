@@ -21,7 +21,7 @@ ContentfulRails.configure do |config|
   config.preview_access_token = "your preview access token"
   config.management_token = "your management access token"
   config.space = "your space ID"
-  config.options = "hash of options"
+  config.contentful_options = "hash of options"
 end
 ```
 
@@ -29,6 +29,30 @@ Note that you _don't_ have to separately configure ContentfulModel - adding the 
 pass to ContentfulModel in an initializer in the Rails engine.
 
 The default is to authenticate the webhooks; probably a smart move to host on an HTTPS endpoint too.
+
+### Entry Mapping
+
+By default, ContentfulRails will try to define your `entry_mapping` configuration for you.  It does this by iterating through
+ the descendents of the base class `ContentfulModel::Base` during initialization.  In order to ensure these classes are
+ loaded by this time, it will call `eager_load!` for the entire application.  If this is not desired, you can set the
+ `eager_load_entry_mapping` config to false set your entry mapping manually by setting the entry_mapping config
+  as [described here](https://github.com/contentful/contentful.rb#custom-resource-classes).
+
+
+```
+ContentfulRails.configure do |config|
+  ...
+  config.eager_load_entry_mapping = false
+  config.contentful_options = {
+    entry_mapping: {
+      'article' => Article,
+      ...
+    }
+  }
+end
+```
+
+**Note:** If you do not define the entry mapping in your configuration, the webhook cache expiration will likely not work as expected
 
 # Allowing 'Russian Doll' style caching on Entries
 The issue with 'Russian Doll' caching in Rails is that it requires a hit on the database to check the `updated_at` timestamp of an object.

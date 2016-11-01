@@ -23,8 +23,10 @@ module ContentfulRails
     #Iterate through all models which inherit from ContentfulModel::Base
     #and add an entry mapping for them, so calls to the Contentful API return
     #the appropriate classes
+    #If eager_load_entry_mapping is false, engine assumes entry mapping is set manually by
+    #ContentfulRails.contentful_options[:entry_mapping] (passed through to Contentful.entry_mapping config)
     initializer "add_entry_mappings", after: :configure_contentful  do
-      if defined?(ContentfulModel)
+      if defined?(ContentfulModel) && ContentfulRails.configuration.eager_load_entry_mapping
         Rails.application.eager_load!
         ContentfulModel::Base.descendents.each do |klass|
           klass.send(:add_entry_mapping)
