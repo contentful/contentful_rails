@@ -50,6 +50,15 @@ module ContentfulRails
       end
     end
 
+    initializer "add_contentful_mime_type" do
+      content_type = "application/vnd.contentful.management.v1+json"
+      Mime::Type.register "application/json", :contentful_json, [content_type]
+
+      ActionDispatch::ParamsParser::DEFAULT_PARSERS[Mime::Type.lookup(content_type)] = lambda do |body|
+        JSON.parse(body)
+      end
+    end
+
     initializer "add_preview_support" do
       ActiveSupport.on_load(:action_controller) do
         include ContentfulRails::Preview
