@@ -50,6 +50,12 @@ module ContentfulRails
       end
     end
 
+    initializer "prepend_timestamps_module", after: :subscribe_to_webhook_events do
+      if defined?(::ContentfulModel)
+        ContentfulModel::Base.send(:prepend, ContentfulRails::Caching::Timestamps)
+      end
+    end
+
     initializer "add_contentful_mime_type" do
       content_type = "application/vnd.contentful.management.v1+json"
       Mime::Type.register content_type, :contentful_json, [content_type]
@@ -64,12 +70,5 @@ module ContentfulRails
         include ContentfulRails::Preview
       end
     end
-
-    config.to_prepare do
-      if defined?(::ContentfulModel)
-        ContentfulModel::Base.send(:include, ContentfulRails::Caching::Timestamps)
-      end
-    end
-
   end
 end
