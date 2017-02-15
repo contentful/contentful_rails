@@ -4,7 +4,7 @@ class ContentfulRails::WebhooksController < ActionController::Base
                                   password: ContentfulRails.configuration.webhooks_password
   end
 
-  skip_before_filter :verify_authenticity_token, :only => [:create] if defined?(:verify_authenticity_token)
+  skip_before_filter :verify_authenticity_token, :only => [:create], raise: false # Rails 5
 
   #this is where we receive a webhook, via a POST
   def create
