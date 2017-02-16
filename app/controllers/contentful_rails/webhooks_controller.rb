@@ -3,7 +3,12 @@ class ContentfulRails::WebhooksController < ActionController::Base
     http_basic_authenticate_with  name: ContentfulRails.configuration.webhooks_username,
                                   password: ContentfulRails.configuration.webhooks_password
   end
-  Rails::VERSION::MAJOR > 4 ? skip_before_action : skip_before_filter :verify_authenticity_token, :only => [:create], raise: false # Rails 5
+  params = [:verify_authenticity_token, {:only => [:create], raise: false}]
+  if Rails::VERSION::MAJOR > 4 
+    skip_before_action *params
+  else
+    skip_before_filter *params
+  end
 
   #this is where we receive a webhook, via a POST
   def create
