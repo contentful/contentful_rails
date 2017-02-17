@@ -59,8 +59,8 @@ module ContentfulRails
     initializer "add_contentful_mime_type" do
       content_type = "application/vnd.contentful.management.v1+json"
       Mime::Type.register content_type, :contentful_json, [content_type]
-
-      ActionDispatch::ParamsParser::DEFAULT_PARSERS[Mime::Type.lookup(content_type)] = lambda do |body|
+      default_parsers = Rails::VERSION::MAJOR > 4 ? ActionDispatch::Http::Parameters::DEFAULT_PARSERS : ActionDispatch::ParamsParser::DEFAULT_PARSERS
+      default_parsers[Mime::Type.lookup(content_type)] = lambda do |body|
         JSON.parse(body)
       end
     end
