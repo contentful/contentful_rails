@@ -7,8 +7,11 @@ module ContentfulRails
       def self.included(base)
         base.extend ClassMethods
         base.class_eval do
-          alias_method_chain :updated_at, :caching
-          alias_method_chain :cache_key, :preview
+          alias_method :updated_at_without_caching, :updated_at
+          alias_method :updated_at, :updated_at_with_caching
+
+          alias_method :cache_key_without_preview, :cache_key
+          alias_method :cache_key, :cache_key_with_preview
         end
       end
 

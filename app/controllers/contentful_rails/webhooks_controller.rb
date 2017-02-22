@@ -1,12 +1,12 @@
 class ContentfulRails::WebhooksController < ActionController::Base
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
 
   if ContentfulRails.configuration.authenticate_webhooks
     http_basic_authenticate_with  name: ContentfulRails.configuration.webhooks_username,
                                   password: ContentfulRails.configuration.webhooks_password
   end
 
-  skip_before_filter :verify_authenticity_token, :only => [:create]
+  # skip_before_filter :verify_authenticity_token, :only => [:create]
 
   #this is where we receive a webhook, via a POST
   def create
