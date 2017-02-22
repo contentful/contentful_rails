@@ -1,4 +1,6 @@
 class ContentfulRails::WebhooksController < ActionController::Base
+  protect_from_forgery with: :exception
+
   if ContentfulRails.configuration.authenticate_webhooks
     http_basic_authenticate_with  name: ContentfulRails.configuration.webhooks_username,
                                   password: ContentfulRails.configuration.webhooks_password
