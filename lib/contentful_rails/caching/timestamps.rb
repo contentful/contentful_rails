@@ -4,12 +4,8 @@ module ContentfulRails
     # to check the cache for its timestamp before making an expensive API call.
     # Also includes a module method to remove an existing timestamp.
     module Timestamps
-      def self.included(base)
+      def self.prepended(base)
         base.extend ClassMethods
-        base.class_eval do
-          alias_method_chain :updated_at, :caching
-          alias_method_chain :cache_key, :preview
-        end
       end
 
       module ClassMethods
@@ -26,31 +22,28 @@ module ContentfulRails
         end
       end
 
-
-      # A replacement method for updated_at(), called when this module is included in ContentfulModel::Base
-      def updated_at_with_caching
-        if ContentfulRails.configuration.perform_caching && !ContentfulModel.use_preview_api
-          Rails.cache.fetch(self.timestamp_cache_key) do
-            updated_at_without_caching
-          end
-        else
-          updated_at_without_caching
-        end
-      end
-
       def timestamp_cache_key
         self.class.timestamp_cache_key(id)
       end
 
-      def cache_key_with_preview
-        if ContentfulModel.use_preview_api
-          "preview/#{cache_key_without_preview}"
+
+      def updated_at
+        if ContentfulRails.configuration.perform_caching && !ContentfulModel.use_preview_api
+          Rails.cache.fetch(self.timestamp_cache_key) do
+            super
+          end
         else
-          cache_key_without_preview
+          super
         end
       end
 
-
+      def cache_key
+        if ContentfulModel.use_preview_api
+          "preview/#{super}"
+        else
+          super
+        end
+      end
     end
   end
 end
