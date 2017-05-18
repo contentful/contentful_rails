@@ -6,6 +6,15 @@ changes from that point onwards.
 
 ## Master
 
+## 0.4.0
+
+### Added
+* Added support for Rails 5
+* Added flag to control eager loading of `contentful_model` classes
+
+### Fixed
+* Fixed issue with MIME type overriding
+
 ## 0.3.0
 
 ### Added
