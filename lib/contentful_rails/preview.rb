@@ -5,7 +5,9 @@ module ContentfulRails
     included do
       before_action :check_preview_domain
       after_action :remove_preview_cache
-      helper_method :preview?
+      if respond_to?(:helper_method)
+        helper_method :preview?
+      end
     end
     # Check whether the subdomain being presented is the preview domain.
     # If so, set ContentfulModel to use the preview API, and request a username / password
