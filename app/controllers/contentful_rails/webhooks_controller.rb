@@ -5,6 +5,7 @@ class ContentfulRails::WebhooksController < ActionController::Base
     http_basic_authenticate_with  name: ContentfulRails.configuration.webhooks_username,
                                   password: ContentfulRails.configuration.webhooks_password
   end
+
   params = [:verify_authenticity_token, {:only => [:create], raise: false}]
   if Rails::VERSION::MAJOR > 4 
     skip_before_action *params

@@ -3,6 +3,10 @@ module ContentfulRails
 
     isolate_namespace ContentfulRails
 
+    config.generators do |g|
+      g.test_framework :rspec
+    end
+
     config.before_initialize do
       if ContentfulRails.configuration.nil?
         ContentfulRails.configure {}
