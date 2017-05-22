@@ -4,7 +4,11 @@ This Changelog has been introduced after the 0.2.3 release by @errorstudio.
 Since then, @contentful has taken ownership. This changelog will start reflecting
 changes from that point onwards.
 
-## Master
+## 0.4.1
+
+### Fixed
+
+* Fixed support for more Rails 5 changes
 
 ## 0.4.0
 

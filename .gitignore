@@ -1,6 +1,7 @@
 # Ignore bundler lockfile
 # http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile
 *.lock
+/pkg/*
 
 # Ignore bundler config.
 /.bundle
