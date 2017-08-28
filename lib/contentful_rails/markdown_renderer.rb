@@ -23,7 +23,10 @@ class ContentfulRails::MarkdownRenderer < Redcarpet::Render::HTML
 
   def image(link, title, alt_text)
     # add the querystring to the image
-    link += "?#{@image_parameters.to_query}"
+    if @image_parameters.present?
+      prefix = link.include?("?") ? "&" : "?"
+      link += "#{prefix}#{@image_parameters.to_query}"
+    end
     # return a content tag
     content_tag(:img, nil, src: link.to_s, alt: alt_text, title: title)
   end
