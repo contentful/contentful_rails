@@ -60,13 +60,17 @@ module ContentfulRails
       end
     end
 
+    module ContentfulJSON
+      MIMETYPE = 'application/vnd.contentful.management.v1+json'.freeze
+    end
+
     initializer "add_contentful_mime_type" do
-      content_type = "application/vnd.contentful.management.v1+json"
-      Mime::Type.register content_type, :contentful_json, [content_type]
+      Mime::Type.register(ContentfulJSON::MIMETYPE, :contentful_json)
       default_parsers = Rails::VERSION::MAJOR > 4 ? ActionDispatch::Http::Parameters::DEFAULT_PARSERS : ActionDispatch::ParamsParser::DEFAULT_PARSERS
-      default_parsers[Mime::Type.lookup(content_type)] = lambda do |body|
+      default_parsers[Mime::Type.lookup(ContentfulJSON::MIMETYPE)] = lambda do |body|
         JSON.parse(body)
       end
+      ActionDispatch::Request.parameter_parsers = ActionDispatch::Request::DEFAULT_PARSERS if ActionDispatch::Request.respond_to?(:parameter_parsers=)
     end
 
     initializer "add_preview_support" do
