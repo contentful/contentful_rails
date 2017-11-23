@@ -34,7 +34,7 @@ class ContentfulRails::WebhooksController < ActionController::Base
   end
 
   def debug
-    render text: "Debug method works ok"
+    render plain: "Debug method works ok"
   end
 
   private
