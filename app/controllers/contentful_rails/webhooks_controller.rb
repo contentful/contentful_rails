@@ -7,7 +7,7 @@ class ContentfulRails::WebhooksController < ActionController::Base
   end
 
   params = [:verify_authenticity_token, {:only => [:create], raise: false}]
-  if Rails::VERSION::MAJOR > 4 
+  if Rails::VERSION::MAJOR > 4
     skip_before_action *params
   else
     skip_before_filter *params
@@ -29,8 +29,8 @@ class ContentfulRails::WebhooksController < ActionController::Base
     # implement your own and subscribe in an initializer.
     ActiveSupport::Notifications.instrument("Contentful.#{update_type}", params)
 
-    #must return an ok
-    head :ok
+    #must return an empty response
+    render body: nil
   end
 
   def debug
