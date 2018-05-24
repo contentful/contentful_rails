@@ -21,6 +21,7 @@ ContentfulRails.configure do |config|
   config.preview_access_token = "your preview access token"
   config.management_token = "your management access token"
   config.space = "your space ID"
+  config.environment = "your environment ID"
   config.contentful_options = "hash of options"
 end
 ```

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 RSpec.describe ContentfulRails::WebhooksController, type: :controller do
 
@@ -10,6 +10,4 @@ RSpec.describe ContentfulRails::WebhooksController, type: :controller do
       expect(response).to have_http_status(200)
     end
   end
-
 end
-
