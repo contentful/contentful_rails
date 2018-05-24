@@ -17,3 +17,7 @@
 !/spec/dummy/log/.keep
 !/spec/dummy/tmp/.keep
 
+# Ignore auto-generated docs and coverage reports
+.yardoc
+doc
+coverage

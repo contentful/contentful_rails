@@ -1,3 +1,4 @@
 module ContentfulRails
-  VERSION = "0.4.2"
+  # Version number
+  VERSION = '0.4.2'.freeze
 end

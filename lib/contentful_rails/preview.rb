@@ -1,14 +1,14 @@
 module ContentfulRails
+  # Module to secure preview sessions and bust cache on preview entries
   module Preview
     extend ActiveSupport::Concern
 
     included do
       before_action :check_preview_domain
       after_action :remove_preview_cache
-      if respond_to?(:helper_method)
-        helper_method :preview?
-      end
+      helper_method :preview? if respond_to?(:helper_method)
     end
+
     # Check whether the subdomain being presented is the preview domain.
     # If so, set ContentfulModel to use the preview API, and request a username / password
     def check_preview_domain
@@ -18,25 +18,24 @@ module ContentfulRails
         return
       end
 
-      #check subdomain matches the configured one - we assume it's first sub.domain.in.the.array
+      # check subdomain matches the configured one - we assume it's first sub.domain.in.the.array
       if request.subdomains.first == ContentfulRails.configuration.preview_domain
-        authenticated = authenticate_with_http_basic  do |u,p|
-          u == ContentfulRails.configuration.preview_username
-          p == ContentfulRails.configuration.preview_password
+        authenticated = authenticate_with_http_basic do |u, p|
+          u == ContentfulRails.configuration.preview_username &&
+            p == ContentfulRails.configuration.preview_password
         end
         # If user is authenticated, we're good to switch to the preview api
         if authenticated
           ContentfulModel.use_preview_api = true
         else
-          #otherwise ask for user / pass
-            request_http_basic_authentication
+          # otherwise ask for user / pass
+          request_http_basic_authentication
         end
       else
-        #if the subdomain doesn't match the configured one, explicitly set to false
+        # if the subdomain doesn't match the configured one, explicitly set to false
         ContentfulModel.use_preview_api = false
         return
       end
-
     end
 
     # If we're in preview mode, we need to remove the preview view caches which were created.
@@ -49,7 +48,7 @@ module ContentfulRails
     end
 
     def preview?
-      ContentfulModel.use_preview_api == true
+      ContentfulModel.use_preview_api
     end
   end
 end

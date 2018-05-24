@@ -1,12 +1,14 @@
 module ContentfulRails
+  # Custom Redcarpet wrapper with opinionated defaults.
   module MarkdownHelper
-    # Return HTML which is passed through the Redcloth markdown processor, using a custom renderer
+    # Return HTML which is passed through the Redcarpet markdown processor, using a custom renderer
     # so that we can manipulate images using contentful's URL-based API.
     # NOTE that this is super-permissive out of the box. Set options to suit when you call the method.
+    #
     # @param renderer_options [Hash] of options from https://github.com/vmg/redcarpet#darling-i-packed-you-a-couple-renderers-for-lunch
     # @param markdown_options [Hash] of options from https://github.com/vmg/redcarpet#and-its-like-really-simple-to-use
     def parse_markdown(markdown_string, renderer_options: {}, markdown_options: {}, image_options: {})
-      markdown_string ||= ""
+      markdown_string ||= ''
       markdown_opts = {
         no_intr_emphasis: true,
         tables: true,
