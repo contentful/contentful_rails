@@ -34,7 +34,7 @@ module ContentfulRails
       # Fetches updated_at from cache if set, otherwise calls contentful object
       def updated_at
         if ContentfulRails.configuration.perform_caching && !ContentfulModel.use_preview_api
-          Rails.cache.fetch(imestamp_cache_key) do
+          Rails.cache.fetch(timestamp_cache_key) do
             super
           end
         else
