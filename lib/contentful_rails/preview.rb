@@ -20,6 +20,11 @@ module ContentfulRails
 
       # check subdomain matches the configured one - we assume it's first sub.domain.in.the.array
       if request.subdomains.first == ContentfulRails.configuration.preview_domain
+        if ContentfulRails.configuration.preview_username.nil? && ContentfulRails.configuration.preview_password.nil?
+          ContentfulModel.use_preview_api = true
+          return
+        end
+
         authenticated = authenticate_with_http_basic do |u, p|
           u == ContentfulRails.configuration.preview_username &&
             p == ContentfulRails.configuration.preview_password
