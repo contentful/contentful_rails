@@ -7,6 +7,7 @@ module ContentfulRails
     #
     # @param renderer_options [Hash] of options from https://github.com/vmg/redcarpet#darling-i-packed-you-a-couple-renderers-for-lunch
     # @param markdown_options [Hash] of options from https://github.com/vmg/redcarpet#and-its-like-really-simple-to-use
+    # @param image_options [Hash] of options to pass to the Image API. https://github.com/contentful/contentful_rails#manipulating-images
     def parse_markdown(markdown_string, renderer_options: {}, markdown_options: {}, image_options: {})
       markdown_string ||= ''
       markdown_opts = {

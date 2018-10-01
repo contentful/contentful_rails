@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ContentfulRails::WebhooksController, type: :controller do
-
+describe ContentfulRails::WebhooksController, type: :controller do
   routes { ContentfulRails::Engine.routes }
 
   describe "GET#debug" do
