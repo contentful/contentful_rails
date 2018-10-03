@@ -12,7 +12,7 @@ This is a work in progress. It relies on the contentful_model gem (http://github
 # Configuration
 ContentfulRails accepts a block for configuration. Best done in a Rails initializer.
 
-```
+```ruby
 ContentfulRails.configure do |config|
   config.authenticate_webhooks = true # false here would allow the webhooks to process without basic auth
   config.webhooks_username = "a basic auth username"
@@ -40,7 +40,7 @@ By default, ContentfulRails will try to define your `entry_mapping` configuratio
   as [described here](https://github.com/contentful/contentful.rb#custom-resource-classes).
 
 
-```
+```ruby
 ContentfulRails.configure do |config|
   ...
   config.eager_load_entry_mapping = false
@@ -60,7 +60,7 @@ The issue with 'Russian Doll' caching in Rails is that it requires a hit on the 
 
 This is obviously expensive when the object is called over an API. So this gem wraps caches `updated_at` locally, and checks that first on subsequent calls.
 
-```
+```ruby
 Foo.updated_at #returns a timestamp from cache, or from the API if no cache exists
 ```
 
@@ -74,7 +74,7 @@ To make use of this in your app:
 ## routes.rb
 Mount the ContentfulRails engine at your preferred url:
 
-```
+```ruby
 mount ContentfulRails::Engine => '/contentful' #feel free to choose a different endpoint name
 ```
 
@@ -93,7 +93,7 @@ To take advantage of this, there's a custom Redcarpet renderer which allows you 
 
 In your application_controller.rb:
 
-```
+```ruby
 helper ContentfulRails::MarkdownHelper
 ```
 
@@ -102,8 +102,8 @@ This allows you to call `parse_markdown(@your_markdown)` and get HTML. *Note* th
 ## Manipulating images
 To manipulate images which are referenced in your markdown, you can pass the following into the `parse_markdown()` call.
 
-```
-parse_markdown(@your_markdown, image_options: {width: 1024, height: 1024})
+```ruby
+parse_markdown(@your_markdown, image_options: { width: 1024, height: 1024 })
 ```
 
 The `image_options` parameter takes the following options (some are mutually exclusive. Read the [instructions here](https://www.contentful.com/blog/2014/08/14/do-more-with-images-on-contentful-platform/)):
@@ -120,20 +120,20 @@ Sometimes you might want to apply some specific class, markup or similar to an h
 
 Just subclass the `ContentfulRails::MarkdownRenderer` class, and call any methods you need.
 
-```
+```ruby
 class MyRenderer < ContentfulRails::MarkdownRenderer
-      # If you want to pass options into your renderer, you need to overload initialize()
-      def initialize(opts)
-        @options = opts
-        super
-      end
+  # If you want to pass options into your renderer, you need to overload initialize()
+  def initialize(opts)
+    @options = opts
+    super
+  end
 
-      # If you want to do something special with links:
-      def link(link,title,content)
-        # Add a class name to all links, for example
-        class_name = "my-link-class-name"
-        content_tag(:a, content, href: link, title: title, class: class_name)
-      end
+  # If you want to do something special with links:
+  def link(link,title,content)
+    # Add a class name to all links, for example
+    class_name = "my-link-class-name"
+    content_tag(:a, content, href: link, title: title, class: class_name)
+  end
 end
 ```
 
