@@ -21,6 +21,18 @@ module ContentfulRails
     yield(configuration)
   end
 
+  def self.include_migrations_to_active_record
+    return unless active_record_available?
+
+    ActiveRecord::Migration.send(:include, ContentfulModel::Migrations::Migration)
+  end
+
+  def self.active_record_available?
+    Module.const_get('ActiveRecord::Migration')
+  rescue NameError
+    false
+  end
+
   # Configuration accessors
   class Configuration
     attr_accessor :authenticate_webhooks,
@@ -53,4 +65,4 @@ module ContentfulRails
   end
 end
 
-ActiveRecord::Migration.send(:include, ContentfulModel::Migrations::Migration)
+ContentfulRails.include_migrations_to_active_record
