@@ -52,5 +52,3 @@ module ContentfulRails
     end
   end
 end
-
-ActiveRecord::Migration.send(:include, ContentfulModel::Migrations::Migration)
