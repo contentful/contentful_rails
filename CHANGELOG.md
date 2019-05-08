@@ -4,6 +4,10 @@ This Changelog has been introduced after the 0.2.3 release by @errorstudio.
 Since then, @contentful has taken ownership. This changelog will start reflecting
 changes from that point onwards.
 
+## 0.5.0
+### Changed
+* Removed strict dependency to ActiveRecord
+
 ## 0.4.1
 
 ### Fixed
