@@ -139,6 +139,22 @@ end
 
 You can overload any methods exposed in RedCarpet.
 
+# Preview API
+ContenfulRails can be set up to use the [Contenful Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/), and has the option of protecting that content behind basic authentication.
+To enable the preview api, add the below settings to your configuration.
+
+```
+ContentfulRails.configure do |config|
+  config.enable_preview_domain = true # use the preview domain
+  config.preview_access_token = "your preview access token"
+  config.preview_username = "a basic auth username"
+  config.preview_password = "a basic auth password"
+end
+```
+
+If you site is already protected with another form of authentication, then leave `preview_username` and `preview_password` unset.
+This will skip the authentication step when displaying preview content.
+
 # To Do
 Some things would be nice to do:
 
