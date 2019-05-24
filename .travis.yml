@@ -3,13 +3,13 @@ cache: bundler
 before_script:
   - psql -c 'create database dummy_test;' -U postgres
 rvm:
-  - 2.2.4
-  - 2.3.0
+  - 2.3.8
+  - 2.4.6
+  - 2.5.5
 gemfile:
-  - Gemfile.rails4.2
-  - Gemfile.rails5.0
+  - gemfiles/rails_4_2.gemfile
+  - gemfiles/rails_5_0.gemfile
 matrix:
   exclude:
     - rvm: 1.9.3
-      gemfile: Gemfile.rails5.0
-
+      gemfile: gemfiles/rails_5_0.gemfile

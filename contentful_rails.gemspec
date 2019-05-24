@@ -34,4 +34,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'rubocop', '~> 0.49.0'
   s.add_development_dependency 'pg'
+  s.add_development_dependency 'appraisal'
 end
