@@ -36,7 +36,7 @@ module ContentfulRails
     # ContentfulRails.contentful_options[:entry_mapping] (passed through to Contentful.entry_mapping config)
     initializer 'add_entry_mappings', after: :configure_contentful do
       if defined?(ContentfulModel) && ContentfulRails.configuration.eager_load_entry_mapping
-        Rails.application.eager_load!
+        Zeitwerk::Loader.eager_load_all
         ContentfulModel::Base.descendents.each do |klass|
           klass.send(:add_entry_mapping)
         end
