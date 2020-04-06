@@ -146,6 +146,7 @@ To enable the preview api, add the below settings to your configuration.
 ```
 ContentfulRails.configure do |config|
   config.enable_preview_domain = true # use the preview domain
+  config.preview_domain = "first portion of preview subdomain `sub.domain`"
   config.preview_access_token = "your preview access token"
   config.preview_username = "a basic auth username"
   config.preview_password = "a basic auth password"
