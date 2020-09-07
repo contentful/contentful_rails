@@ -86,6 +86,10 @@ This will give you 2 routes:
 ## What the webhook handler does
 At the moment all this does is delete the timestamp cache entry, which means that a subsequent call to `updated_at` calls the API.
 
+## Note on MemCacheStore and Webhooks `unpublish` call
+`#delete_matched` method isn't and [won't be supported by MemCacheStore](https://github.com/petergoldstein/dalli/issues/397),
+and there is no way to expire all fragments, referenced by `unpublish` webhook event.
+
 # View Helpers
 Contentful has a [really nice url-based image manipulation API](https://www.contentful.com/blog/2014/08/14/do-more-with-images-on-contentful-platform/).
 

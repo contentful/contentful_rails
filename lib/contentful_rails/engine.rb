@@ -54,6 +54,8 @@ module ContentfulRails
 
       ActiveSupport::Notifications.subscribe(/Contentful.*Entry\.unpublish/) do |_name, _start, _finish, _id, payload|
         ActionController::Base.new.expire_fragment(%r{/.*#{payload[:sys][:id]}.*/})
+      rescue NotImplementedError => e
+        Rails.logger.error(e)
       end
     end
 
